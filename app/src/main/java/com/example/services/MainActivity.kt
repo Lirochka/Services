@@ -28,13 +28,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.foregroundService.setOnClickListener {
-            ContextCompat.startForegroundService(this,
-                MyForegroundService.newIntent(this))
+            ContextCompat.startForegroundService(
+                this,
+                MyForegroundService.newIntent(this)
+            )
         }
 
         binding.intentService.setOnClickListener {
-            ContextCompat.startForegroundService(this,
-                MyIntentService.newIntent(this))
+            ContextCompat.startForegroundService(
+                this,
+                MyIntentService.newIntent(this)
+            )
         }
 
         binding.jobScheduler.setOnClickListener {
@@ -43,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             val jobInfo = JobInfo.Builder(MyJobService.JOB_ID, componentName)
                 .setRequiresCharging(false)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
-             //   .setPersisted(true)
+                //   .setPersisted(true)
                 .build()
 
             val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
@@ -54,6 +58,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 startService(MyIntentService2.newIntent(this, page++))
             }
+        }
+        binding.jobIntentService.setOnClickListener {
+            MyJobIntentService.enqueue(this, page++)
         }
     }
 }
